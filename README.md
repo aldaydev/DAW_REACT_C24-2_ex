@@ -1,3 +1,10 @@
+Ejercicio clase 24-2 React
+
+Crea una simulación de una tienda de la temática que quieras, simula algún funcionamiento del carrito y usa react-router-dom para tener varias páginas a las que redirigir
+
+
+/------------------------
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
