@@ -1,7 +1,13 @@
+import { Link } from "react-router-dom";
+import HeaderNav from "./HeaderNav";
+
 const Header = ()=>{
     return(
-        <header>
-            ESTO ES EL HEADER
+        <header className="App-header">
+            <div className="header-logo">
+                <Link to='/'>TIENDA ONLINE</Link>
+            </div>
+            <HeaderNav/>
         </header>
     )
 }
