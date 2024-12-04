@@ -30,7 +30,6 @@ const HeaderNav = ()=>{
                     
                     return (
                         <li key={`link-${index}`} className="nav-item">
-                            {/* <span>{catDir + " " + catName}</span> */}
                             <Link to={`/${catDir}`}>{catName}</Link>
                         </li>
                     )
