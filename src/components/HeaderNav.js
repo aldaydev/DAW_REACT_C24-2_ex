@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import cart_img from "./img/cart_img.png"
 
 const HeaderNav = ()=>{
 
@@ -14,7 +15,6 @@ const HeaderNav = ()=>{
         }
 
         getCategories();
-        console.log(categories);
     },[])
 
 
@@ -24,11 +24,10 @@ const HeaderNav = ()=>{
                 {categories.map((category, index)=>{
                     let catName = category.toUpperCase();
                     let catDir = category.toLowerCase().split("").filter((char)=>{
-                       return char !== " " && char !== "'";
+                        return char !== " " && char !== "'";
                     });
                     catDir = catDir.join('');
                     
-                    console.log(catDir);
                     return (
                         <li key={`link-${index}`} className="nav-item">
                             {/* <span>{catDir + " " + catName}</span> */}
@@ -37,7 +36,11 @@ const HeaderNav = ()=>{
                     )
                 })}
                 <li className="nav-item nav-item--cart">
-                    <Link to='/cart'>CART</Link>
+                    <Link to='/cart'>
+                        <div className="cart-logoContainer">
+                            <img src={cart_img} alt="cart icon" className="cart-logo"/>
+                        </div>
+                    </Link>
                 </li>
             </ul>
             
