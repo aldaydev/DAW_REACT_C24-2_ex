@@ -9,7 +9,6 @@ const MensClothing = ({url})=>{
 
     useEffect(()=>{
         async function getCategory(){
-            console.log(url);
             let response = await fetch(url);
             let category = await response.json();
             setProducts(category);

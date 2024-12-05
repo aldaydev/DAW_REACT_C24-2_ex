@@ -35,11 +35,8 @@ const Cart = ()=>{
         localStorage.removeItem(product.id);
         const updatedCart = [...cartProducs];
         updatedCart.splice(index,1);
-        console.log(index);
-        console.log('updatedcart', updatedCart);
         setCartProducts(updatedCart);
         setFinalPrice(()=>finalPrice - product.price);
-        // e.target.parentElement.remove();
     }
 
     return(

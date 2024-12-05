@@ -9,7 +9,6 @@ const HeaderNav = ({catList})=>{
     useEffect(()=>{
         
         async function getCategories(){
-            console.log('catList', catList);
             let response = await fetch('https://fakestoreapi.com/products/categories');
             let LoadedCategories = await response.json();
             setCategories(LoadedCategories);
@@ -23,12 +22,6 @@ const HeaderNav = ({catList})=>{
         <nav className="header-nav">
             <ul className="nav-list">
                 {catList.map((category, index)=>{
-                    console.log('cat', category)
-                    // let catName = category.toUpperCase();
-                    // let catDir = category.toLowerCase().split("").filter((char)=>{
-                    //     return char !== " " && char !== "'";
-                    // });
-                    // catDir = catDir.join('');
                     
                     return (
                         <li key={`link-${index}`} className="nav-item">

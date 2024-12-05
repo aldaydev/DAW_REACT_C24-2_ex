@@ -3,7 +3,6 @@ import HeaderNav from "./HeaderNav";
 
 const Header = ({catList})=>{
 
-    console.log('catListHeaDER', catList);
     return(
         <header className="App-header">
             <div className="header-logo">
