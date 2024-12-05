@@ -26,19 +26,20 @@ const Cart = ()=>{
     },[cartProducs])
 
     useEffect(()=>{
-        if(localStorage.length < 1){
-            setCartTitle('TUS PRODUCTOS APARECERÁN AQUÍ');
-        }else{
-            setCartTitle('TUS PRODUCTOS');
-        }
+        localStorage.length < 1 
+            ? setCartTitle('TUS PRODUCTOS APARECERÁN AQUÍ')
+            : setCartTitle('TUS PRODUCTOS');
     },[cartProducs, cartTitle])
 
-    function deleteFromCart(product, e){
-        const updatedCart = [...cartProducs];
-        setCartProducts(updatedCart);
-        setFinalPrice(finalPrice - product.price)
+    function deleteFromCart(product, e, index){
         localStorage.removeItem(product.id);
-        e.target.parentElement.remove();
+        const updatedCart = [...cartProducs];
+        updatedCart.splice(index,1);
+        console.log(index);
+        console.log('updatedcart', updatedCart);
+        setCartProducts(updatedCart);
+        setFinalPrice(()=>finalPrice - product.price);
+        // e.target.parentElement.remove();
     }
 
     return(
@@ -56,7 +57,7 @@ const Cart = ()=>{
                         <p>{product.description}</p>
                         {/* <span>{`RATING: ${product.rating.rate}`}</span> */}
                         <h3>{`PRICE: ${product.price}€`}</h3>
-                        <button onClick={(e)=>deleteFromCart(product,e)}>Eliminar del carrito</button>
+                        <button onClick={(e)=>deleteFromCart(product,e,index)}>Eliminar del carrito</button>
                     </article>
                 )
             })}
@@ -64,12 +65,12 @@ const Cart = ()=>{
             {finalPrice > 0 && 
             <aside>
                 <ul>
-                    {cartProducs.map((product, index)=>{
+                    {Object.keys(localStorage).length > 0 && cartProducs.map((product, index)=>{
                         return(
                             <li key={`finalProd-${index}`} className="finalCart-item">{`${product.title} - ${product.price}€`}</li>
                         )
                     })}
-                    <li>{`Total: ${finalPrice}€`}</li>
+                    {finalPrice > 0 && <li>{`Total: ${finalPrice}€`}</li>}
                 </ul>
             </aside>}
             

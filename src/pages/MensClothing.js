@@ -36,13 +36,16 @@ const MensClothing = ({url})=>{
                     <article key={`article-${index}`} className="main-sec-article">
                         <h3 className="article-title">{product.title}</h3>
                         <div className="article-imgContainer">
-                            <img src={product.image} className="article-img"/>
+                            <img src={product.image} className="article-img" alt={`Imagen de ${product.title}`}/>
                         </div>
                         <span>{`ID: ${product.id}`}</span>
                         <p>{product.description}</p>
                         <span>{`RATING: ${product.rating.rate}`}</span>
                         <h3>{`PRICE: ${product.price}€`}</h3>
-                        <button onClick={()=>cartProducts(product)}>{localStorage[product.id] ? 'Quitar del carrito' : 'Añadir al carrito'}</button>
+                        <button 
+                            onClick={()=>cartProducts(product)}>
+                            {localStorage[product.id] ? 'Quitar del carrito' : 'Añadir al carrito'}
+                        </button>
                     </article>
                 )
             })}
