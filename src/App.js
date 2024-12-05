@@ -13,11 +13,15 @@ import { useEffect, useState } from "react";
 function App() {
 
   const [categories, setCategories] = useState([]);
+  // const [catList, setCatList] = useState([]);
 
   useEffect(()=>{
+    //Almacenar los datos de la API
     async function getCategories(){
+      //Fetch
       let response = await fetch('https://fakestoreapi.com/products/categories');
       let catData = await response.json();
+      //Conformamos un arr con: [catName, catDir, catUrl, catComponent]
       const loadedCategories = catData.reduce((acc, curr)=>{
         let catArr = [];
         let catName = curr.toUpperCase();
@@ -36,15 +40,37 @@ function App() {
           return char;
         });
         catUrl = catUrl.join('');
-        catUrl = 'https://fakestoreapi.com/products/categories/' + catUrl;
+        // const newCatList = [...catList];
+        // newCatList.push(catUrl);
+        // setCatList(newCatList);
+        catUrl = 'https://fakestoreapi.com/products/category/' + catUrl;
         catArr.push(catUrl);
+
+        console.log(catData);
+        let catComponent;
+        switch (curr){
+          case "electronics":
+            catComponent = (<Electronics url={catUrl} title={catName}/>);
+            break;
+          case "jewelery":
+            catComponent = (<Jewelery url={catUrl} title={catName}/>);
+            break;
+          case "men's clothing" :
+            catComponent = (<MensClothing url={catUrl} title={catName}/>);
+            break;
+          case "women's clothing":
+            catComponent = <WomensClothing url={catUrl} title={catName}/>;
+            break;
+          
+          default: <Home/>;
+        }
+        catArr.push(catComponent);
         acc.push(catArr);
         return acc;
       }, [])
       setCategories(loadedCategories);
     }
 
-    
     getCategories();
   },[])
 
@@ -52,12 +78,26 @@ function App() {
   return (
     <Router>
         <div className="App">
-          <Header/>
+          <Header catList={categories.reduce((acc,curr)=>{
+            console.log('acc', acc);
+            let catArr = [];
+            catArr.push(curr[0]);
+            catArr.push(curr[1]);
+            acc.push(catArr);
+            return acc;
+          }, [])}
+          />
           <main className="App-main">
             <Routes>
+              <Route
+                path="/"
+                element={<Home/>}
+              />
               {categories.map((category, index)=>{
-                return <Route path={`/${category[1]}`}/>
+                console.log(categories);
+                return <Route key={index} path={`/${category[1]}`} element={category[3]}/>
               })}
+              <Route path="/cart" element={<Cart/>}/>
             </Routes>
             
 

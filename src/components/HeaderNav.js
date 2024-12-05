@@ -2,13 +2,14 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import cart_img from "./img/cart_img.png"
 
-const HeaderNav = ()=>{
+const HeaderNav = ({catList})=>{
 
     const [categories, setCategories] = useState([]);
 
     useEffect(()=>{
-
+        
         async function getCategories(){
+            console.log('catList', catList);
             let response = await fetch('https://fakestoreapi.com/products/categories');
             let LoadedCategories = await response.json();
             setCategories(LoadedCategories);
@@ -21,16 +22,17 @@ const HeaderNav = ()=>{
     return(
         <nav className="header-nav">
             <ul className="nav-list">
-                {categories.map((category, index)=>{
-                    let catName = category.toUpperCase();
-                    let catDir = category.toLowerCase().split("").filter((char)=>{
-                        return char !== " " && char !== "'";
-                    });
-                    catDir = catDir.join('');
+                {catList.map((category, index)=>{
+                    console.log('cat', category)
+                    // let catName = category.toUpperCase();
+                    // let catDir = category.toLowerCase().split("").filter((char)=>{
+                    //     return char !== " " && char !== "'";
+                    // });
+                    // catDir = catDir.join('');
                     
                     return (
                         <li key={`link-${index}`} className="nav-item">
-                            <Link to={`/${catDir}`}>{catName}</Link>
+                            <Link to={`/${category[1]}`}>{category[0]}</Link>
                         </li>
                     )
                 })}

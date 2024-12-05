@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 import HeaderNav from "./HeaderNav";
 
-const Header = ()=>{
+const Header = ({catList})=>{
+
+    console.log('catListHeaDER', catList);
     return(
         <header className="App-header">
             <div className="header-logo">
                 <Link to='/'>TIENDA ONLINE</Link>
             </div>
-            <HeaderNav/>
+            <HeaderNav catList={catList}/>
         </header>
     )
 }

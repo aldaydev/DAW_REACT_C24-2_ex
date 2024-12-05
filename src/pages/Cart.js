@@ -54,7 +54,7 @@ const Cart = ()=>{
                         </div>
                         <span>{`ID: ${product.id}`}</span>
                         <p>{product.description}</p>
-                        <span>{`RATING: ${product.rating.rate}`}</span>
+                        {/* <span>{`RATING: ${product.rating.rate}`}</span> */}
                         <h3>{`PRICE: ${product.price}€`}</h3>
                         <button onClick={(e)=>deleteFromCart(product,e)}>Eliminar del carrito</button>
                     </article>
