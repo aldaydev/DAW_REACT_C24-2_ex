@@ -50,7 +50,7 @@ const Cart = ()=>{
         const updatedProducts = [...cartProducts];
         updatedProducts.splice(index,1,updatedProduct);
         setCartProducts(updatedProducts);
-        cartProds(product);
+        // cartProds(product);
         // let newCart = [...cart, product.id];
         // setCart([newCart]);
 
