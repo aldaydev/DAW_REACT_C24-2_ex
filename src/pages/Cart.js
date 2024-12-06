@@ -11,8 +11,6 @@ const Cart = ()=>{
 
     useEffect(()=>{
         const productList = Object.keys(localStorage);
-
-        console.log('PRODUCTLIST', productList);
         
         const newCartProducts = [];
         productList.forEach((id)=>{
@@ -24,7 +22,8 @@ const Cart = ()=>{
     useEffect(()=>{
         setFinalPrice(()=>{
             return cartProducts.reduce((acc, curr)=>{
-                    acc += curr.price;
+                    let num = (curr.price * curr.count);
+                    acc = parseFloat((acc + num).toFixed(3));
                 return acc;
             },0)
         })
@@ -53,8 +52,6 @@ const Cart = ()=>{
         // cartProds(product);
         // let newCart = [...cart, product.id];
         // setCart([newCart]);
-
-        console.log('updatedProduct',updatedProduct);
     }
 
     return(
@@ -92,15 +89,34 @@ const Cart = ()=>{
                 )
             })}
 
-            {finalPrice > 0 && 
+            {Object.keys(localStorage).length > 0 && 
             <aside>
                 <ul>
                     {Object.keys(localStorage).length > 0 && cartProducts.map((product, index)=>{
-                        return(
-                            <li key={`finalProd-${index}`} className="finalCart-item">{`${product.title} - ${product.price}€`}</li>
-                        )
+                        if (product.count > 0){
+                            return(
+                                <li key={`finalProd-${index}`} className="finalCart-item">
+                                    <p>{`${product.title}`}</p>
+                                    <p>{`Cantidad: ${product.count}`}</p>
+                                    <p>{`Precio: ${product.price * product.count}€`}</p>
+                                </li>
+                            )
+                        }else{
+                            return null;
+                        }
+                        // return(
+                        //     <li key={`finalProd-${index}`} className="finalCart-item">
+                        //         <p>{`${product.title}`}</p>
+                        //         <p>{`Cantidad: ${product.count}`}</p>
+                        //         <p>{`Precio: ${product.price * product.count}€`}</p>
+                        //     </li>
+                        // )
                     })}
-                    {finalPrice > 0 && <li>{`Total: ${finalPrice}€`}</li>}
+                    {finalPrice > 0 && <ul>
+                        <li>{`Total: ${finalPrice}€`}</li>
+                        <li>{`IVA: ${parseFloat((finalPrice * 0.21).toFixed(3))}€`}</li>
+                        <li>{`Precio FINAL: ${parseFloat((finalPrice * 0.21 + finalPrice).toFixed(3))} €`}</li>
+                    </ul>}
                 </ul>
             </aside>}
             

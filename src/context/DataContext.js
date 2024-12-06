@@ -5,12 +5,14 @@ import Jewelery from "../pages/Jewelery";
 import MensClothing from "../pages/MensClothing";
 import WomensClothing from "../pages/WomensClothing";
 import Home from "../pages/Home";
+import CatSection from "../pages/CatSection";
 
 export const DataContext = createContext();
 
 export const DataProvider = ({children}) => {
 
     const [categories, setCategories] = useState([]);
+    const [cartNumber, setCartNumber] = useState(Object.keys(localStorage).length);
 
   useEffect(()=>{
     //Almacenar los datos de la API
@@ -20,7 +22,7 @@ export const DataProvider = ({children}) => {
       let catData = await response.json();
 
       //Conformamos catArr con: [catName, catDir, catUrl, catComponent]
-      const loadedCategories = catData.reduce((acc, curr)=>{
+      const loadedCategories = await catData.reduce((acc, curr)=>{
         let catArr = [];
 
         //Definimos catName y hacemos push
@@ -60,7 +62,7 @@ export const DataProvider = ({children}) => {
             catComponent = (<MensClothing url={catUrl} title={catName}/>);
             break;
           case "women's clothing":
-            catComponent = <WomensClothing url={catUrl} title={catName}/>;
+            catComponent = (<WomensClothing url={catUrl} title={catName}/>);
             break;
           
           default: <Home/>;
@@ -73,12 +75,13 @@ export const DataProvider = ({children}) => {
       //Actualizamos categories con loadedCategories
       setCategories(()=>loadedCategories);
     }
+    setCartNumber(Object.keys(localStorage).length);
     getCategories();
   },[])
 
 
     return (
-        <DataContext.Provider value={categories}>
+        <DataContext.Provider value={{categories, cartNumber, setCartNumber}}>
             {children}
         </DataContext.Provider>
     )

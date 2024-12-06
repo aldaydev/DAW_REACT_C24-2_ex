@@ -10,7 +10,7 @@ import { DataContext } from "./context/DataContext";
 
 function App() {
 
-  const categories = useContext(DataContext);
+  const {categories} = useContext(DataContext);
 
   return (
     <DataProvider>

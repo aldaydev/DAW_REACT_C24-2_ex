@@ -1,10 +1,20 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import cart_img from "./img/cart_img.png"
+import { DataContext } from "../context/DataContext"
+import { useContext } from "react"
+import { cartCount } from "../utils/utils"
 
 const HeaderNav = ({catList})=>{
 
+    const {cartNumber} = useContext(DataContext);
+    // const [cartNum, setCartNum] = useState(Object.keys(localStorage).length);
     const [categories, setCategories] = useState([]);
+    // const [cartNumber, setCatNumber] = useState(Object.keys(localStorage).length);
+
+    // useEffect(()=>{
+    //     setCartNum(Object.keys(localStorage).length);
+    // },[localStorage])
 
     useEffect(()=>{
         
@@ -33,6 +43,7 @@ const HeaderNav = ({catList})=>{
                     <Link to='/cart'>
                         <div className="cart-logoContainer">
                             <img src={cart_img} alt="cart icon" className="cart-logo"/>
+                            {Object.keys(localStorage).length > 0 && <span style={{color: 'black'}}>{cartNumber}</span>}
                         </div>
                     </Link>
                 </li>
