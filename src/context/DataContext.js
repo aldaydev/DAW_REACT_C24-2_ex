@@ -5,6 +5,7 @@ import Jewelery from "../pages/Jewelery";
 import MensClothing from "../pages/MensClothing";
 import WomensClothing from "../pages/WomensClothing";
 import Home from "../pages/Home";
+import CatSection from "../pages/CatSection";
 
 export const DataContext = createContext();
 
@@ -51,16 +52,16 @@ export const DataProvider = ({children}) => {
         let catComponent;
         switch (curr){
           case "electronics":
-            catComponent = (<Electronics url={catUrl} title={catName}/>);
+            catComponent = (<CatSection url={catUrl} title={catName}/>);
             break;
           case "jewelery":
-            catComponent = (<Jewelery url={catUrl} title={catName}/>);
+            catComponent = (<CatSection url={catUrl} title={catName}/>);
             break;
           case "men's clothing" :
-            catComponent = (<MensClothing url={catUrl} title={catName}/>);
+            catComponent = (<CatSection url={catUrl} title={catName}/>);
             break;
           case "women's clothing":
-            catComponent = <WomensClothing url={catUrl} title={catName}/>;
+            catComponent = <CatSection url={catUrl} title={catName}/>;
             break;
           
           default: <Home/>;

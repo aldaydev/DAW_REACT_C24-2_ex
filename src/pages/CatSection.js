@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { getCount, cartProds } from "../utils/utils";
 
-const MensClothing = ({url})=>{
+const CatSection = ({url, title})=>{
 
     
     const [products, setProducts] = useState([]);
@@ -82,7 +82,7 @@ const MensClothing = ({url})=>{
 
     return(
         <section className="main-sec main-sec--mens">
-            <h2 className="main-sec-title">PRODUCTOS DE MEN´S CLOTHING</h2>
+            <h2 className="main-sec-title">{title}</h2>
             {products.map((product, index)=>{
                 return(
                     <article key={`article-${index}`} className="main-sec-article">
@@ -116,4 +116,4 @@ const MensClothing = ({url})=>{
     )
 }
 
-export default MensClothing;
+export default CatSection;
