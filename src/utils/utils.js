@@ -8,11 +8,12 @@ const getCount = (product, index, operation, id)=>{
 
     }else if(operation === 'restar'){
 
-        if(updatedProduct.count > 0){
+        if(updatedProduct.count > 1){
             updatedProduct.count = parseInt(product.count) - 1;
             localStorage[id] = JSON.stringify(updatedProduct);
-        }else if(updatedProduct.count === 0){
+        }else if(updatedProduct.count === 1){
             localStorage.removeItem(id);
+            updatedProduct.count = 0;
         }
     }
     return updatedProduct;
@@ -25,9 +26,4 @@ const cartProds = (product)=>{
     }
 }
 
-const calcTaxes = (price) =>{
-    let priceTaxes = price * 0.21;
-    return priceTaxes + price;
-}
-
-export {getCount, cartProds, calcTaxes};
+export {getCount, cartProds};

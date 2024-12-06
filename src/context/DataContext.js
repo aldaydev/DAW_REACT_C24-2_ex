@@ -12,6 +12,7 @@ export const DataContext = createContext();
 export const DataProvider = ({children}) => {
 
     const [categories, setCategories] = useState([]);
+    const [cartNumber, setCartNumber] = useState(Object.keys(localStorage).length);
 
   useEffect(()=>{
     //Almacenar los datos de la API
@@ -61,7 +62,7 @@ export const DataProvider = ({children}) => {
             catComponent = (<CatSection url={catUrl} title={catName}/>);
             break;
           case "women's clothing":
-            catComponent = <CatSection url={catUrl} title={catName}/>;
+            catComponent = (<CatSection url={catUrl} title={catName}/>);
             break;
           
           default: <Home/>;
@@ -74,12 +75,13 @@ export const DataProvider = ({children}) => {
       //Actualizamos categories con loadedCategories
       setCategories(()=>loadedCategories);
     }
+    setCartNumber(Object.keys(localStorage).length);
     getCategories();
   },[])
 
 
     return (
-        <DataContext.Provider value={categories}>
+        <DataContext.Provider value={{categories, cartNumber}}>
             {children}
         </DataContext.Provider>
     )

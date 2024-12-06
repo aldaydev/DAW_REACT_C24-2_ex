@@ -4,13 +4,12 @@ import { getCount, cartProds } from "../utils/utils";
 
 const CatSection = ({url, title})=>{
 
-    
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
     const [productCount, setProductCount] = useState(false);
 
     useEffect(()=>{
-        async function getCategory(){
+        const getCategory = async() =>{
             let response = await fetch(url);
             let category = await response.json();
             category.reduce((acc, curr) => {
@@ -26,7 +25,7 @@ const CatSection = ({url, title})=>{
         }
 
         getCategory();
-    },[])
+    }, [url])
 
     // useEffect(()=>{
         

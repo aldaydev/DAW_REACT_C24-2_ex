@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCount, cartProds, calcTaxes } from "../utils/utils";
+import { getCount, cartProds } from "../utils/utils";
 
 
 const Cart = ()=>{
@@ -49,7 +49,7 @@ const Cart = ()=>{
         const updatedProducts = [...cartProducts];
         updatedProducts.splice(index,1,updatedProduct);
         setCartProducts(updatedProducts);
-        cartProds(product);
+        // cartProds(product);
         // let newCart = [...cart, product.id];
         // setCart([newCart]);
     }
