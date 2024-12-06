@@ -9,7 +9,7 @@ const Header = ()=>{
 
     return(
         <header className="App-header">
-            <div className="header-logo">
+            <div className="header-brand">
                 <Link to='/'>TIENDA ONLINE</Link>
             </div>
             <HeaderNav catList={
