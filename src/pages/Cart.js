@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
-import { getCount, cartProds } from "../utils/utils";
+import { useContext, useEffect, useState } from "react";
+import { getCount } from "../utils/utils";
+import { DataContext } from "../context/DataContext";
 
 
 const Cart = ()=>{
 
+    const { setCartNumber } = useContext(DataContext);
+
     const [cartProducts, setCartProducts] = useState([]);
     const [cartTitle, setCartTitle] = useState('TUS PRODUCTOS APARECERÁN AQUÍ');
     const [finalPrice, setFinalPrice] = useState([]);
-    // const [cart, setCart] = useState([]);
 
     useEffect(()=>{
         const productList = Object.keys(localStorage);
@@ -41,17 +43,15 @@ const Cart = ()=>{
         updatedCart.splice(index,1);
         setCartProducts(updatedCart);
         setFinalPrice(()=>finalPrice - product.price);
+        setCartNumber(Object.keys(localStorage).length);
     }
 
     const makeCount = (product, index, operation, id)=>{
-        const updatedProduct = getCount(product, index, operation, id);
+        const updatedProduct = getCount(product, operation, id);
         
         const updatedProducts = [...cartProducts];
         updatedProducts.splice(index,1,updatedProduct);
         setCartProducts(updatedProducts);
-        // cartProds(product);
-        // let newCart = [...cart, product.id];
-        // setCart([newCart]);
     }
 
     return(
@@ -79,12 +79,7 @@ const Cart = ()=>{
                                 QUITAR
                             </button>
                             <button onClick={()=>deleteFromCart(product, index)}>ELIMINAR</button>
-                            {/* <button 
-                                onClick={()=>cartProducts(product)}>
-                                {localStorage[product.id] ? 'Quitar del carrito' : 'Añadir al carrito'}
-                            </button> */}
                         </div>
-                        
                     </article>
                 )
             })}
@@ -104,13 +99,6 @@ const Cart = ()=>{
                         }else{
                             return null;
                         }
-                        // return(
-                        //     <li key={`finalProd-${index}`} className="finalCart-item">
-                        //         <p>{`${product.title}`}</p>
-                        //         <p>{`Cantidad: ${product.count}`}</p>
-                        //         <p>{`Precio: ${product.price * product.count}€`}</p>
-                        //     </li>
-                        // )
                     })}
                     {finalPrice > 0 && <ul>
                         <li>{`Total: ${finalPrice}€`}</li>

@@ -1,32 +1,11 @@
-import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import cart_img from "./img/cart_img.png"
 import { DataContext } from "../context/DataContext"
 import { useContext } from "react"
-import { cartCount } from "../utils/utils"
 
 const HeaderNav = ({catList})=>{
 
     const {cartNumber} = useContext(DataContext);
-    // const [cartNum, setCartNum] = useState(Object.keys(localStorage).length);
-    const [categories, setCategories] = useState([]);
-    // const [cartNumber, setCatNumber] = useState(Object.keys(localStorage).length);
-
-    // useEffect(()=>{
-    //     setCartNum(Object.keys(localStorage).length);
-    // },[localStorage])
-
-    useEffect(()=>{
-        
-        async function getCategories(){
-            let response = await fetch('https://fakestoreapi.com/products/categories');
-            let LoadedCategories = await response.json();
-            setCategories(LoadedCategories);
-        }
-
-        getCategories();
-    },[])
-
 
     return(
         <nav className="header-nav">

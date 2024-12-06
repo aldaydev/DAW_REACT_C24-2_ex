@@ -1,8 +1,10 @@
-const WomensClothing = ()=>{
+import CatSection from "./CatSection";
+
+const WomensClothing = ({url, title})=>{
     return(
-        <section>
-            HOLA SOY WOMENSCLOTHING
-        </section>
+        <>
+            <CatSection url={url} title={title}/>
+        </>
     )
 }
 

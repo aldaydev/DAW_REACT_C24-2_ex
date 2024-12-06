@@ -4,26 +4,21 @@ import Header from './components/Header';
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
-import { useEffect, useState, useContext } from "react";
+import { useContext } from "react";
 import { DataProvider } from "./context/DataContext";
 import { DataContext } from "./context/DataContext";
 
 function App() {
-
+  //Rescatamos categories de DataContext
   const {categories} = useContext(DataContext);
 
   return (
+    //Proveemos del contexto a toda la app
     <DataProvider>
+      {/* Englobamos todo en Router */}
       <Router>
         <div className="App">
-          <Header catList={categories.reduce((acc,curr)=>{
-            let catArr = [];
-            catArr.push(curr[0]);
-            catArr.push(curr[1]);
-            acc.push(catArr);
-            return acc;
-          }, [])}
-          />
+          <Header/>
           <main className="App-main">
             <Routes>
               <Route
