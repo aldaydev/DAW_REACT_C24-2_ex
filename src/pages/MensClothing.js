@@ -13,7 +13,7 @@ const MensClothing = ({url})=>{
         async function getCategory(){
             let response = await fetch(url);
             let category = await response.json();
-            const catPlusCount = category.reduce((acc, curr) => {
+            category.reduce((acc, curr) => {
                 if(localStorage[curr.id]){
                     curr.count = JSON.parse(localStorage[curr.id]).count;
                 }else{
@@ -46,14 +46,15 @@ const MensClothing = ({url})=>{
     // }
 
     const makeCount = (product, index, operation, id)=>{
+        //Obtendo el objeto de producto + count
         const updatedProduct = getCount(product, index, operation, id);
-        
+
         const updatedProducts = [...products];
         updatedProducts.splice(index,1,updatedProduct);
         setProducts(updatedProducts);
-        cartProds(product);
-        let newCart = [...cart, product.id];
-        setCart([newCart]);
+        // cartProds(updatedProduct);
+        // let newCart = [...cart, product.id];
+        // setCart([newCart]);
 
         console.log('updatedProduct',updatedProduct);
     }

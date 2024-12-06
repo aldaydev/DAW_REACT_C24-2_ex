@@ -7,7 +7,7 @@ const Cart = ()=>{
     const [cartProducts, setCartProducts] = useState([]);
     const [cartTitle, setCartTitle] = useState('TUS PRODUCTOS APARECERÁN AQUÍ');
     const [finalPrice, setFinalPrice] = useState([]);
-    const [cart, setCart] = useState([]);
+    // const [cart, setCart] = useState([]);
 
     useEffect(()=>{
         const productList = Object.keys(localStorage);
@@ -36,7 +36,7 @@ const Cart = ()=>{
             : setCartTitle('TUS PRODUCTOS');
     },[cartProducts, cartTitle])
 
-    function deleteFromCart(product, e, index){
+    function deleteFromCart(product, index){
         localStorage.removeItem(product.id);
         const updatedCart = [...cartProducts];
         updatedCart.splice(index,1);
@@ -51,8 +51,8 @@ const Cart = ()=>{
         updatedProducts.splice(index,1,updatedProduct);
         setCartProducts(updatedProducts);
         cartProds(product);
-        let newCart = [...cart, product.id];
-        setCart([newCart]);
+        // let newCart = [...cart, product.id];
+        // setCart([newCart]);
 
         console.log('updatedProduct',updatedProduct);
     }
@@ -81,6 +81,7 @@ const Cart = ()=>{
                             <button onClick={()=>makeCount(product, index, 'restar', product.id)}>
                                 QUITAR
                             </button>
+                            <button onClick={()=>deleteFromCart(product, index)}>ELIMINAR</button>
                             {/* <button 
                                 onClick={()=>cartProducts(product)}>
                                 {localStorage[product.id] ? 'Quitar del carrito' : 'Añadir al carrito'}

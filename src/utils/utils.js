@@ -6,16 +6,25 @@ const getCount = (product, index, operation, id)=>{
         localStorage[id] = JSON.stringify(updatedProduct);
 
     }else if(operation === 'restar'){
-        if(product.count > 0){
+
+        // if (product.count > 0) {
+        //     updatedProduct.count = parseInt(product.count) - 1;
+    
+        //     if (updatedProduct.count === 0) {
+        //         localStorage.removeItem(id);
+        //     } else {
+        //         localStorage[id] = JSON.stringify(updatedProduct);
+        //     }
+        // }
+
+
+        if(updatedProduct.count > 0){
             updatedProduct.count = parseInt(product.count) - 1;
             localStorage[id] = JSON.stringify(updatedProduct);
-        }else if(product.count === 1){
-            console.log(id);
+        }else if(updatedProduct.count === 0){
             localStorage.removeItem(id);
         }
     }
-    
-    console.log('COUNT', updatedProduct.count);
 
     return updatedProduct;
 
@@ -29,16 +38,13 @@ const getCount = (product, index, operation, id)=>{
 }
 
 
+
 const cartProds = (product)=>{
 
     if(!localStorage[product.id]){
         localStorage[product.id] = JSON.stringify(product);
     }
-    // else{
-    //     localStorage.removeItem(product.id);
-    // }
-    // let newCart = [...cart, product.id];
-    // setCart([newCart]);
+    
 }
 
 export {getCount, cartProds};
