@@ -1,12 +1,22 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { getCount, cartProds } from "../utils/utils";
+import { getCount, cartProds, cartCount } from "../utils/utils";
+import { useContext } from "react";
+import { DataContext } from "../context/DataContext";
 
 const CatSection = ({url, title})=>{
 
+    const {setCartNumber} = useContext(DataContext);
+
+    // const [cartNum, setCartNum] = useContext(cartNumber);
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
     const [productCount, setProductCount] = useState(false);
+
+    // useEffect(()=>{
+    //     setCartNum(cartNumber);
+    // },[])
+
 
     useEffect(()=>{
         const getCategory = async() =>{
@@ -51,6 +61,7 @@ const CatSection = ({url, title})=>{
         const updatedProducts = [...products];
         updatedProducts.splice(index,1,updatedProduct);
         setProducts(updatedProducts);
+        setCartNumber(Object.keys(localStorage).length);
         // cartProds(updatedProduct);
         // let newCart = [...cart, product.id];
         // setCart([newCart]);

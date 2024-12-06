@@ -22,7 +22,7 @@ export const DataProvider = ({children}) => {
       let catData = await response.json();
 
       //Conformamos catArr con: [catName, catDir, catUrl, catComponent]
-      const loadedCategories = catData.reduce((acc, curr)=>{
+      const loadedCategories = await catData.reduce((acc, curr)=>{
         let catArr = [];
 
         //Definimos catName y hacemos push
@@ -53,16 +53,16 @@ export const DataProvider = ({children}) => {
         let catComponent;
         switch (curr){
           case "electronics":
-            catComponent = (<CatSection url={catUrl} title={catName}/>);
+            catComponent = (<Electronics url={catUrl} title={catName}/>);
             break;
           case "jewelery":
-            catComponent = (<CatSection url={catUrl} title={catName}/>);
+            catComponent = (<Jewelery url={catUrl} title={catName}/>);
             break;
           case "men's clothing" :
-            catComponent = (<CatSection url={catUrl} title={catName}/>);
+            catComponent = (<MensClothing url={catUrl} title={catName}/>);
             break;
           case "women's clothing":
-            catComponent = (<CatSection url={catUrl} title={catName}/>);
+            catComponent = (<WomensClothing url={catUrl} title={catName}/>);
             break;
           
           default: <Home/>;
@@ -81,7 +81,7 @@ export const DataProvider = ({children}) => {
 
 
     return (
-        <DataContext.Provider value={{categories, cartNumber}}>
+        <DataContext.Provider value={{categories, cartNumber, setCartNumber}}>
             {children}
         </DataContext.Provider>
     )
