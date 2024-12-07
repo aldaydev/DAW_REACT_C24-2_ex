@@ -10,6 +10,7 @@ export const DataProvider = ({children}) => {
     //Estado que albergará -> [catName, catDir, catUrl, catComponent] x cat
     const [categories, setCategories] = useState([]);
     const [cartNumber, setCartNumber] = useState(Object.keys(localStorage).length);
+    const [loggedIn, setLoggedIn] = useState(false);
 
 
     useEffect(()=>{
@@ -22,12 +23,13 @@ export const DataProvider = ({children}) => {
         setCategories(()=>loadedCategories);
         //Actualizamos el número de productos en el carrito en funcion de LocalStorage
         setCartNumber(Object.keys(localStorage).length);
+        sessionStorage.loggedIn && setLoggedIn(true);
       }
       asyncHandler();
     },[])
 
     return (
-        <DataContext.Provider value={{categories, cartNumber, setCartNumber}}>
+        <DataContext.Provider value={{categories, cartNumber, setCartNumber, loggedIn, setLoggedIn}}>
             {children}
         </DataContext.Provider>
     )
