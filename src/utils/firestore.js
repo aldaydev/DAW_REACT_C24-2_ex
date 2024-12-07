@@ -17,10 +17,21 @@ export const db = getFirestore(app);
 
 //Comprobación de datos en FireStore
 async function signInFireStore(email,pass){
+    email = email.toLowerCase();
     const user = await getDoc(doc(db, 'users', email));
     const userData = await user.data();
+
+    if(userData){
+        if(userData.email === email && userData.pass === pass){
+            return [true, 'Accediendo...'];
+        }else{
+            return [false, 'Contraseña incorrecta'];
+        }
+    }else{
+        return [false, 'El usuario no existe'];
+    }
     
-    return userData.email === email && userData.pass === pass;
+    // return userData.email === email && userData.pass === pass;
     
 }
 

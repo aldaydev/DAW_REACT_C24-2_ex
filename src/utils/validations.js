@@ -10,4 +10,10 @@ function validatePass(pass) {
     return regex.test(pass);
 }
 
-export {validateEmail, validatePass}
+function validateName(nombre) {
+    // Expresión regular para validar nombres con espacios y guiones permitidos
+    const regex = /^[A-Z][a-zA-Z-]{2,}([ ][A-Z][a-zA-Z-]{2,})*$/;
+    return regex.test(nombre);
+}
+
+export {validateEmail, validatePass, validateName};

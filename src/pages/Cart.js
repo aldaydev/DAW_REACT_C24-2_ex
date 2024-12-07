@@ -55,38 +55,39 @@ const Cart = ()=>{
     }
 
     return(
-        <section>
-            <h3>{cartTitle}</h3>
+        <div className="cart-container">
+            <section className="cartProducts">
+                <h3>{cartTitle}</h3>
 
-            {cartProducts.map((product, index)=>{
-                return(
-                    <article key={`article-${index}`} className="main-sec-article">
-                        <h3 className="article-title">{product.title}</h3>
-                        <div className="article-imgContainer">
-                            <img src={product.image} className="article-img" alt={`Imagen de ${product.title}`}/>
-                        </div>
-                        <span>{`ID: ${product.id}`}</span>
-                        <p>{product.description}</p>
-                        <span>{`RATING: ${product.rating.rate}`}</span>
-                        <h3>{`PRICE: ${product.price}€`}</h3>
-                        <div>
-                            <span>AÑADIR AL CARRITO</span>
-                            <button onClick={()=>makeCount(product, index, 'sumar', product.id)}>
-                                AÑADIR
-                            </button>
-                            <h3>{product.count}</h3>
-                            <button onClick={()=>makeCount(product, index, 'restar', product.id)}>
-                                QUITAR
-                            </button>
-                            <button onClick={()=>deleteFromCart(product, index)}>ELIMINAR</button>
-                        </div>
-                    </article>
-                )
-            })}
-
-            {Object.keys(localStorage).length > 0 && 
-            <aside>
-                <ul>
+                {cartProducts.map((product, index)=>{
+                    return(
+                        <article key={`article-${index}`} className="main-sec-article">
+                            <h3 className="article-title">{product.title}</h3>
+                            <div className="article-imgContainer">
+                                <img src={product.image} className="article-img" alt={`Imagen de ${product.title}`}/>
+                            </div>
+                            <span>{`ID: ${product.id}`}</span>
+                            <p>{product.description}</p>
+                            <span>{`RATING: ${product.rating.rate}`}</span>
+                            <h3>{`PRICE: ${product.price}€`}</h3>
+                            <div>
+                                <span>AÑADIR AL CARRITO</span>
+                                <button onClick={()=>makeCount(product, index, 'sumar', product.id)}>
+                                    AÑADIR
+                                </button>
+                                <h3>{product.count}</h3>
+                                <button onClick={()=>makeCount(product, index, 'restar', product.id)}>
+                                    QUITAR
+                                </button>
+                                <button onClick={()=>deleteFromCart(product, index)}>ELIMINAR</button>
+                            </div>
+                        </article>
+                    )
+                })}
+            </section>
+            
+            <aside className="cartAside">
+                <ul className="cartAside-list">
                     {Object.keys(localStorage).length > 0 && cartProducts.map((product, index)=>{
                         if (product.count > 0){
                             return(
@@ -100,16 +101,15 @@ const Cart = ()=>{
                             return null;
                         }
                     })}
-                    {finalPrice > 0 && <ul>
+                </ul>
+                {finalPrice > 0 && <ul>
                         <li>{`Total: ${finalPrice}€`}</li>
                         <li>{`IVA: ${parseFloat((finalPrice * 0.21).toFixed(3))}€`}</li>
                         <li>{`Precio FINAL: ${parseFloat((finalPrice * 0.21 + finalPrice).toFixed(3))} €`}</li>
-                    </ul>}
-                </ul>
-            </aside>}
-            
-
-        </section>
+                </ul>}
+            </aside>
+        </div>
+        
     )
 }
 
