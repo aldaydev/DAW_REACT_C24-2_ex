@@ -95,7 +95,6 @@ async function getCategories(){
 }
 
 function productStars (rating){
-    const fullStar = <div className="rating-star rating-star--full"></div>;
     const initialStars = ['empty','empty', 'empty','empty', 'empty'];
     const floor = Math.floor(rating);
     const float = parseFloat((rating - floor).toFixed(1)) * 100;
@@ -123,7 +122,7 @@ function productStars (rating){
                 }else{
                     return <div className="rating-star--outline" key={`rating${index}`}>
                                 <div className="rating-star" 
-                                style={{background: `linear-gradient(to left, #FAFAFA ${rest}%, #F2A154 ${rest}%)`}}>
+                                style={{background: `linear-gradient(to left, #FAFAFA ${rest}%, #FA8900 ${rest}%)`}}>
 
                                 </div>
                             </div>;

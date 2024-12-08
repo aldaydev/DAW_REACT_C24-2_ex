@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { DataContext } from "../context/DataContext";
-import { deleteUser, getUserData } from "../utils/firestore";
-import userEdit_icon from "../assets/img/icons/userEdit_icon.svg"
+import { DataContext } from "../../../context/DataContext";
+import { deleteUser, getUserData } from "../../../utils/firestore";
+import userEdit_icon from "../../../assets/img/icons/userEdit_icon.svg"
 
 const Account = ()=>{
 

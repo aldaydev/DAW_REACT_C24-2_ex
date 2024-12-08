@@ -1,7 +1,7 @@
-import { validateEmail, validatePass, validateName } from "../utils/validations";
-import { DataContext } from "../context/DataContext";
+import { validateEmail, validatePass, validateName } from "../../../utils/validations";
+import { DataContext } from "../../../context/DataContext";
 import { useContext, useState } from "react";
-import { signInFireStore, signUpFireStore } from "../utils/firestore";
+import { signInFireStore, signUpFireStore } from "../../../utils/firestore";
 
 const Login = ()=>{
 

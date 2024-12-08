@@ -1,6 +1,14 @@
 import brand_logo from '../assets/img/brands/brand_logo.svg'
+import { useEffect } from 'react';
+
 
 const Home = ()=>{
+
+    useEffect(()=>{
+        const main = document.querySelector('.App-main');
+        main.scrollTop = 0;
+    },[])
+
     return(
         <section className="main-sec">
             <header className="home-header">

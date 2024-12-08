@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css';
-import Header from './components/Header';
+import Header from './components/Header/Header';
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import { useContext } from "react";
 import { DataProvider } from "./context/DataContext";
 import { DataContext } from "./context/DataContext";
-import User from "./pages/User";
+import User from "./pages/User/User";
 
 function App() {
   //Rescatamos categories de DataContext
@@ -30,7 +30,7 @@ function App() {
                 return <Route key={index} path={`/${category[1]}`} element={category[3]}/>
               })}
               <Route path="/cart" element={<Cart/>}/>
-              <Route path="/login" element={<User/>}/>
+              <Route path="/user" element={<User/>}/>
             </Routes>
             <Footer/>
           </main>

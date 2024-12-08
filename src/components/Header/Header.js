@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import HeaderNav from "./HeaderNav";
 import { useContext } from "react";
-import { DataContext } from "../context/DataContext";
-import brand_logo from "../assets/img/brands/brand_logo.svg"
+import { DataContext } from "../../context/DataContext";
+import brand_logo from "../../assets/img/brands/brand_logo.svg"
 
 const Header = ()=>{
 

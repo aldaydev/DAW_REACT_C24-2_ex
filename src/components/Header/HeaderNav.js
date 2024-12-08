@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
-import cart_icon from "../assets/img/icons/cart_icon.svg"
-import login_icon from "../assets/img/icons/login_icon.svg"
-import user_icon from "../assets/img/icons/user_icon.svg"
-import notifications_icon from "../assets/img/icons/notifications_icon.svg"
-import { DataContext } from "../context/DataContext"
+import cart_icon from "../../assets/img/icons/cart_icon.svg"
+import login_icon from "../../assets/img/icons/login_icon.svg"
+import user_icon from "../../assets/img/icons/user_icon.svg"
+import notifications_icon from "../../assets/img/icons/notifications_icon.svg"
+import { DataContext } from "../../context/DataContext"
 import { useContext } from "react"
 
 const HeaderNav = ({catList})=>{
@@ -18,7 +18,7 @@ const HeaderNav = ({catList})=>{
                     
                     return (
                         <li key={`link-${index}`} className="nav-catItem">
-                            <Link to={`/${category[1]}`}>{category[0]}</Link>
+                            <Link to={`/${category[1]}#`}>{category[0]}</Link>
                         </li>
                     )
                 })}
@@ -26,7 +26,7 @@ const HeaderNav = ({catList})=>{
             
             <ul className="nav-userList">
                 <li className="nav-userItem">
-                    <Link to='/login'>
+                    <Link to='/user'>
                         <div className="nav-user">
                             {loggedIn 
                                 ? <>

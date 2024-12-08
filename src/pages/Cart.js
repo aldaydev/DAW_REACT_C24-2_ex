@@ -23,6 +23,11 @@ const Cart = ()=>{
     },[]);
 
     useEffect(()=>{
+        const main = document.querySelector('.App-main');
+        main.scrollTop = 0;
+    },[])
+
+    useEffect(()=>{
         setFinalPrice(()=>{
             return cartProducts.reduce((acc, curr)=>{
                     let num = (curr.price * curr.count);
@@ -113,7 +118,7 @@ const Cart = ()=>{
                     : <div>
                         <p>Accede a tu cuenta o crea una para realizar tu pedido</p>
                         <button>
-                            <Link to="/login">REGÍSTRATE</Link>
+                            <Link to="/user">REGÍSTRATE</Link>
                         </button>
                     </div>}
             </aside>
