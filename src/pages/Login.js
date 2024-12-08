@@ -84,7 +84,7 @@ const Login = ()=>{
     }
 
     return (
-        <section>
+        <section className="main-sec">
             <article>
                 <h2>ENTRA CON TU CUENTA</h2>
                 <form onSubmit={(e)=>validateSignIn(e)}>
@@ -123,6 +123,11 @@ const Login = ()=>{
                         <span>Contraseña</span>
                         <input type="password" id="signUpPass"/>
                         {passError[0] && passError[1] === 'signUp' && passError[2]}
+                    </label>
+                    
+                    <label>
+                        <p>Acepto haber leído las condiciones</p>
+                        <input type="checkbox" required={true}/>
                     </label>
                     <input type="submit" value="Registrarse"/>
                 </form>

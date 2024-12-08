@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { getCount } from "../utils/utils";
 import { DataContext } from "../context/DataContext";
+import { Link } from "react-router-dom"
 
 
 const Cart = ()=>{
 
-    const { setCartNumber } = useContext(DataContext);
+    const { setCartNumber, loggedIn } = useContext(DataContext);
 
     const [cartProducts, setCartProducts] = useState([]);
     const [cartTitle, setCartTitle] = useState('TUS PRODUCTOS APARECERÁN AQUÍ');
@@ -107,6 +108,14 @@ const Cart = ()=>{
                         <li>{`IVA: ${parseFloat((finalPrice * 0.21).toFixed(3))}€`}</li>
                         <li>{`Precio FINAL: ${parseFloat((finalPrice * 0.21 + finalPrice).toFixed(3))} €`}</li>
                 </ul>}
+                {loggedIn 
+                    ? <button>REALIZAR PEDIDO</button>
+                    : <div>
+                        <p>Accede a tu cuenta o crea una para realizar tu pedido</p>
+                        <button>
+                            <Link to="/login">REGÍSTRATE</Link>
+                        </button>
+                    </div>}
             </aside>
         </div>
         

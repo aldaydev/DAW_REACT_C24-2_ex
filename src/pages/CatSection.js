@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { getCount } from "../utils/utils";
+import { getCount, productStars } from "../utils/utils";
 import { useContext } from "react";
 import { DataContext } from "../context/DataContext";
 
@@ -53,6 +53,7 @@ const CatSection = ({url, title})=>{
                         <span>{`ID: ${product.id}`}</span>
                         <p>{product.description}</p>
                         <span>{`RATING: ${product.rating.rate}`}</span>
+                        {productStars(product.rating.rate)}
                         <h3>{`PRICE: ${product.price}€`}</h3>
                         <div>
                             <span>AÑADIR AL CARRITO</span>

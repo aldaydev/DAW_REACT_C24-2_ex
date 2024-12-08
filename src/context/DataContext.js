@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { getCategories } from "../utils/utils";
+import { getUserData } from "../utils/firestore";
 
 //Exportamos el contexto
 export const DataContext = createContext();
@@ -11,6 +12,7 @@ export const DataProvider = ({children}) => {
     const [categories, setCategories] = useState([]);
     const [cartNumber, setCartNumber] = useState(Object.keys(localStorage).length);
     const [loggedIn, setLoggedIn] = useState(false);
+    const [userData, setUserData] = useState(null);
 
 
     useEffect(()=>{
@@ -28,8 +30,16 @@ export const DataProvider = ({children}) => {
       asyncHandler();
     },[])
 
+    useEffect(()=>{
+        const handleAsync = async () =>{
+          const userData = await getUserData();
+          setUserData(userData);
+        }
+        loggedIn && handleAsync();
+    },[loggedIn])
+
     return (
-        <DataContext.Provider value={{categories, cartNumber, setCartNumber, loggedIn, setLoggedIn}}>
+        <DataContext.Provider value={{categories, cartNumber, setCartNumber, loggedIn, setLoggedIn, userData}}>
             {children}
         </DataContext.Provider>
     )

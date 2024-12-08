@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import HeaderNav from "./HeaderNav";
 import { useContext } from "react";
 import { DataContext } from "../context/DataContext";
-import fakestore_logo from "./img/fakestore_logo.png"
+import brand_logo from "../assets/img/brands/brand_logo.svg"
 
 const Header = ()=>{
 
@@ -13,7 +13,7 @@ const Header = ()=>{
             <div className="header-brand">
                 <Link to='/'>
                     <div className="brand-container">
-                        <img src={fakestore_logo} alt="Fake Store Logo" className="brand-logo"/>
+                        <img src={brand_logo} alt="Fake Store Logo" className="brand-logo"/>
                         <div className="brand-text">
                             <h3 className="brand-title">FAKE 
                                 <span className="brand-title brand-title--mod"> STORE</span>

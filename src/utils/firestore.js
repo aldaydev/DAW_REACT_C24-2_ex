@@ -31,8 +31,6 @@ async function signInFireStore(email,pass){
         return [false, 'El usuario no existe'];
     }
     
-    // return userData.email === email && userData.pass === pass;
-    
 }
 
 //Creación de nuevo usuario en FireStore
@@ -51,9 +49,17 @@ async function signUpFireStore(name, lastname, email, pass){
     }
 }
 
+//Eliminar un usuario
 async function deleteUser(){
     const userId = await sessionStorage.user;
     deleteDoc(await doc(db, 'users', userId));
 }
 
-export { signInFireStore, signUpFireStore, deleteUser };
+//Recuperar datos del usuario
+async function getUserData() {
+    const userId = await sessionStorage.user;
+    const userData = await getDoc(doc(db, 'users', userId));
+    return await userData.data();
+}
+
+export { signInFireStore, signUpFireStore, deleteUser, getUserData };
