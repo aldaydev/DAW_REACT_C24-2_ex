@@ -85,53 +85,57 @@ const Login = ()=>{
 
     return (
         <section className="main-sec">
-            <article>
-                <h2>ENTRA CON TU CUENTA</h2>
-                <form onSubmit={(e)=>validateSignIn(e)}>
-                    <label>
-                        <span>Email</span>
-                        <input type="text" id="signInEmail"/>
-                        {emailError[0] && emailError[1] === 'signIn' && emailError[2]}
-                    </label>
-                    <label>
-                        <span>Contraseña</span>
-                        <input type="password" id="signInPass"/>
-                        {passError[0] && passError[1] === 'signIn' && passError[2]}
-                    </label>
-                    <input type="submit" value="Entrar"/>
-                </form>
-                {signInError && <p>{signInError}</p>}
-            </article>
-            <article>
-                <h2>... O CREA TU CUENTA AHORA</h2>
-                <form onSubmit={validateSignUp}>
-                    <label>
-                        <span>Nombre</span>
-                        <input type="text" id="signUpName"/>
-                    </label>
-                    <label>
-                        <span>Apellido</span>
-                        <input type="text" id="signUpLastName"/>
-                    </label>
-                    {nameError[0] && nameError[1] === 'signUp' && nameError[2]}
-                    <label>
-                        <span>Email</span>
-                        <input type="text" id="signUpEmail"/>
-                        {emailError[0] && emailError[1] === 'signUp' && emailError[2]}
-                    </label>
-                    <label>
-                        <span>Contraseña</span>
-                        <input type="password" id="signUpPass"/>
-                        {passError[0] && passError[1] === 'signUp' && passError[2]}
-                    </label>
-                    
-                    <label>
-                        <p>Acepto haber leído las condiciones</p>
-                        <input type="checkbox" required={true}/>
-                    </label>
-                    <input type="submit" value="Registrarse"/>
-                </form>
-            </article>
+            <h1 className="login-header">AREA DE RESGISTRO</h1>
+            <div className="login-container">
+                <article className="signIn-container">
+                    <h2 className="signIn-header">ENTRA CON TU CUENTA</h2>
+                    <form onSubmit={(e)=>validateSignIn(e)} className="signIn-form">
+                        <label className="login-label">
+                            <input type="text" placeholder="Email" id="signInEmail" className="login-labelInput"/>
+                            <span className="login-labelText">Email</span>
+                            {emailError[0] && emailError[1] === 'signIn' && emailError[2]}
+                        </label>
+                        <label className="login-label">
+                            <input type="password" placeholder="Contraseña" id="signInPass" className="login-labelInput"/>
+                            <span className="login-labelText">Contraseña</span>
+                            {passError[0] && passError[1] === 'signIn' && passError[2]}
+                        </label>
+                        <input type="submit" value="Entrar" className="signIn-btn"/>
+                    </form>
+                    {signInError && <p>{signInError}</p>}
+                </article>
+                <article className="signUp-container">
+                    <h2 className="signUp-header">... O CREA TU CUENTA AHORA</h2>
+                    <form onSubmit={validateSignUp} className="signUp-form">
+                        <label className="login-label">
+                            <input type="text" placeholder="Nombre" id="signUpName" className="login-labelInput"/>
+                            <span className="login-labelText">Nombre</span>
+                        </label>
+                        <label className="login-label">
+                            <input type="text" placeholder="Apellido" id="signUpLastName" className="login-labelInput"/>
+                            <span className="login-labelText">Apellido</span>
+                        </label>
+                        {nameError[0] && nameError[1] === 'signUp' && nameError[2]}
+                        <label className="login-label">
+                            <input type="text" placeholder="Email" id="signUpEmail" className="login-labelInput"/>
+                            <span className="login-labelText">Email</span>
+                            {emailError[0] && emailError[1] === 'signUp' && emailError[2]}
+                        </label>
+                        <label className="login-label">
+                            <input type="password" placeholder="Contraseña" id="signUpPass" className="login-labelInput"/>
+                            <span className="login-labelText">Contraseña</span>
+                            {passError[0] && passError[1] === 'signUp' && passError[2]}
+                        </label>
+                        
+                        <label>
+                            <p>Acepto haber leído las condiciones</p>
+                            <input type="checkbox" required={true}/>
+                        </label>
+                        <input type="submit" value="Registrarse" className="signIn-btn"/>
+                    </form>
+                </article>
+            </div>
+            
         </section>
     )
 }

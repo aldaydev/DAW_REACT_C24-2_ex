@@ -57,7 +57,7 @@ const CatSection = ({url, title})=>{
                             <header>
                                 <div className="product-imgContainer">
                                     <img src={product.image} className="product-img" alt={`Imagen de ${product.title}`}/>
-                                    {/* <span className="product-id">{`ID: ${product.id}`}</span> */}
+
                                 </div>
                             <h3 className="product-title">{product.title}</h3>
                             </header>

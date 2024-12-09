@@ -2,15 +2,19 @@ import { useContext, useEffect, useState } from "react";
 import { getCount } from "../utils/utils";
 import { DataContext } from "../context/DataContext";
 import { Link } from "react-router-dom"
+import { productStars } from "../utils/utils";
+import  cart_remove_icon from "../assets/img/icons/cart_remove_icon.svg";
+import  cart_add_icon from "../assets/img/icons/cart_add_icon.svg";
+import  cart_delete_icon from "../assets/img/icons/cart_delete_icon.svg"
 
 
 const Cart = ()=>{
 
-    const { setCartNumber, loggedIn } = useContext(DataContext);
+    const { setCartNumber, loggedIn, cartNumber } = useContext(DataContext);
 
     const [cartProducts, setCartProducts] = useState([]);
     const [cartTitle, setCartTitle] = useState('TUS PRODUCTOS APARECERÁN AQUÍ');
-    const [finalPrice, setFinalPrice] = useState([]);
+    const [finalPrice, setFinalPrice] = useState(0);
 
     useEffect(()=>{
         const productList = Object.keys(localStorage);
@@ -61,68 +65,115 @@ const Cart = ()=>{
     }
 
     return(
-        <div className="cart-container">
-            <section className="cartProducts">
-                <h3>{cartTitle}</h3>
+        <section className="cart-container">
+            <section className="cart-main">
+                <h1 className="cartMain-header">{cartTitle}</h1>
 
-                {cartProducts.map((product, index)=>{
-                    return(
-                        <article key={`article-${index}`} className="main-sec-article">
-                            <h3 className="article-title">{product.title}</h3>
-                            <div className="article-imgContainer">
-                                <img src={product.image} className="article-img" alt={`Imagen de ${product.title}`}/>
-                            </div>
-                            <span>{`ID: ${product.id}`}</span>
-                            <p>{product.description}</p>
-                            <span>{`RATING: ${product.rating.rate}`}</span>
-                            <h3>{`PRICE: ${product.price}€`}</h3>
-                            <div>
-                                <span>AÑADIR AL CARRITO</span>
-                                <button onClick={()=>makeCount(product, index, 'sumar', product.id)}>
-                                    AÑADIR
-                                </button>
-                                <h3>{product.count}</h3>
-                                <button onClick={()=>makeCount(product, index, 'restar', product.id)}>
-                                    QUITAR
-                                </button>
-                                <button onClick={()=>deleteFromCart(product, index)}>ELIMINAR</button>
-                            </div>
-                        </article>
-                    )
-                })}
+                <section className="cartMain-products">
+                    {cartProducts.map((product, index)=>{
+                        return(
+                            <article key={`article-${index}`} className="cartMain-product">
+                                <article className="cartMain-leftContainer">
+                                    <div className="cartMain-imgContainer">
+                                        <img src={product.image} className="cartMain-img" alt={`Imagen de ${product.title}`}/>
+                                    </div>
+                                    <div className="rate-group">
+                                        {productStars(product.rating.rate)}
+                                        {/* <span className="rating-info">{`${product.rating.rate} estrellas de ${product.rating.count} usuarios`}</span> */}
+                                    </div>
+                                </article>
+                                
+                                <article className="cartMain-rigthContainer">
+                                    <h2 className="cartMain-title">{product.title}</h2>
+                                    
+                                    <p className="cartMain-description">{product.description}</p>
+                                    
+                                    <div className="rigthContainer-downContainer">
+                                        <div className="product-handleCart product-handleCart--cart">
+                                            <button onClick={()=>makeCount(product, index, 'restar', product.id)} className="handleCart-btn handleCart-btn--remove">
+                                                <img src={cart_remove_icon} alt="Cart remove icon" className="handleCart-icon"/>
+                                            </button>
+
+                                            <h3 className="handleCart-count">{product.count}</h3>
+
+                                            <button onClick={()=>makeCount(product, index, 'sumar', product.id)} className="handleCart-btn handleCart-btn--add">
+                                                <img src={cart_add_icon} alt="Cart add icon" className="handleCart-icon"/>
+                                            </button>
+                                        </div>
+                                        <h3 className="product-price product-price--cart">{`PRICE: ${parseFloat((product.price * product.count).toFixed(2))}€`}</h3>
+                                        <div className="deleteFromCart-container">
+                                            <button onClick={()=>deleteFromCart(product, index)} className="deleteFromCart-btn">
+                                                <img src={cart_delete_icon} alt="Delete drom cart icon" className="deleteFromCart-img"/>
+                                            </button>
+                                        </div>
+                                        
+                                    </div>
+
+                                    
+                                </article>
+                                
+                            </article>
+                        )
+                    })}
+                </section>
+                
             </section>
             
             <aside className="cartAside">
                 <ul className="cartAside-list">
-                    {Object.keys(localStorage).length > 0 && cartProducts.map((product, index)=>{
-                        if (product.count > 0){
-                            return(
-                                <li key={`finalProd-${index}`} className="finalCart-item">
-                                    <p>{`${product.title}`}</p>
+                    {cartNumber > 0 && cartProducts.map((product, index)=>{
+                        return(
+                            <li key={`finalProd-${index}`} className="finalCart-item">
+                                {/* <p>{`${product.title}`}</p> */}
+                                <div className="finalCart-imgContainer">
+                                    <img src={product.image} className="finalCart-img" alt={`Imagen de ${product.title}`}/>
+                                </div>
+                                <div className="finalCart-dataContainer">
                                     <p>{`Cantidad: ${product.count}`}</p>
-                                    <p>{`Precio: ${product.price * product.count}€`}</p>
-                                </li>
-                            )
-                        }else{
-                            return null;
-                        }
+                                    <p>{`Precio: ${parseFloat(product.price * product.count).toFixed(2)}€`}</p>
+                                </div>
+                                
+                            </li>
+                        )
+                        // if (product.count > 0){
+                        //     return(
+                        //         <li key={`finalProd-${index}`} className="finalCart-item">
+                        //             {/* <p>{`${product.title}`}</p> */}
+                        //             <div className="finalCart-imgContainer">
+                        //                 <img src={product.image} className="finalCart-img" alt={`Imagen de ${product.title}`}/>
+                        //             </div>
+                        //             <div className="finalCart-dataContainer">
+                        //                 <p>{`Cantidad: ${product.count}`}</p>
+                        //                 <p>{`Precio: ${parseFloat(product.price * product.count).toFixed(2)}€`}</p>
+                        //             </div>
+                                    
+                        //         </li>
+                        //     )
+                        // }else{
+                        //     return null;
+                        // }
                     })}
                 </ul>
-                {finalPrice > 0 && <ul>
-                        <li>{`Total: ${finalPrice}€`}</li>
-                        <li>{`IVA: ${parseFloat((finalPrice * 0.21).toFixed(3))}€`}</li>
-                        <li>{`Precio FINAL: ${parseFloat((finalPrice * 0.21 + finalPrice).toFixed(3))} €`}</li>
+                {/*REVISAR SI SE PUEDE QUITAR*/}
+                {cartNumber > 0 && <ul className="finalPrice-list">
+                        <li className="finalPrice-price">{`Total: ${finalPrice}€`}</li>
+                        <li className="finalPrice-tax">{`IVA: ${parseFloat((finalPrice * 0.21).toFixed(2))}€`}</li>
+                        <li className="finalPrice-total">Precio FINAL: 
+                            <b>{` ${parseFloat((finalPrice * 0.21 + finalPrice).toFixed(2))} €`}</b>
+                        </li>
                 </ul>}
                 {loggedIn 
-                    ? <button>REALIZAR PEDIDO</button>
+                    ? <button className="cartBuy-btn">
+                            <Link to="/user">REALIZAR PEDIDO</Link>
+                        </button>
                     : <div>
-                        <p>Accede a tu cuenta o crea una para realizar tu pedido</p>
-                        <button>
+                        <p className="cartBuy-register">Accede a tu cuenta o crea una para realizar tu pedido</p>
+                        <button className="cartBuy-btn">
                             <Link to="/user">REGÍSTRATE</Link>
                         </button>
                     </div>}
             </aside>
-        </div>
+        </section>
         
     )
 }
