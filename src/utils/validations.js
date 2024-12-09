@@ -11,8 +11,8 @@ function validatePass(pass) {
 }
 
 function validateName(nombre) {
-    // Expresión regular para validar nombres con espacios y guiones permitidos
-    const regex = /^[A-Z][a-zA-Z-]{2,}([ ][A-Z][a-zA-Z-]{2,})*$/;
+    // Expresión regular para validar nombres con acentos, espacios y guiones permitidos
+    const regex = /^[A-ZÁÉÍÓÚÑ][a-záéíóúñA-ZÁÉÍÓÚÑ-]{2,}([ ][A-ZÁÉÍÓÚÑ][a-záéíóúñA-ZÁÉÍÓÚÑ-]{2,})*$/;
     return regex.test(nombre);
 }
 

@@ -62,4 +62,11 @@ async function getUserData() {
     return await userData.data();
 }
 
-export { signInFireStore, signUpFireStore, deleteUser, getUserData };
+async function getUserName(userId){
+    const userCall = await getDoc(doc(db, 'users', userId));
+    const userData = await userCall.data();
+    console.log(userData);
+    return await userData;
+}
+
+export { signInFireStore, signUpFireStore, deleteUser, getUserData, getUserName };

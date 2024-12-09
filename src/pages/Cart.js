@@ -42,7 +42,7 @@ const Cart = ()=>{
     },[cartProducts])
 
     useEffect(()=>{
-        localStorage.length < 1 
+        cartNumber === 0 
             ? setCartTitle('TUS PRODUCTOS APARECERÁN AQUÍ')
             : setCartTitle('TUS PRODUCTOS');
     },[cartProducts, cartTitle])
@@ -53,7 +53,7 @@ const Cart = ()=>{
         updatedCart.splice(index,1);
         setCartProducts(updatedCart);
         setFinalPrice(()=>finalPrice - product.price);
-        setCartNumber(Object.keys(localStorage).length);
+        setCartNumber((previous)=> previous > 0 && previous - 1);
     }
 
     const makeCount = (product, index, operation, id)=>{

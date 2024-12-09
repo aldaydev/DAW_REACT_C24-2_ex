@@ -5,21 +5,24 @@ import userEdit_icon from "../../../assets/img/icons/userEdit_icon.svg"
 
 const Account = ()=>{
 
-    const {setLoggedIn, userId} = useContext(DataContext);
-    const [userData, setUserData] = useState([]);
+    const {setLoggedIn, userId, userName, userData, setUserData} = useContext(DataContext);
+    // const [userData, setUserData] = useState([]);
 
     useEffect(()=>{
         const handleAsync = async ()=>{
             const data = await getUserData();
-            setUserData(data);
+            return await data;
+            // setUserData(data);
         }
-        handleAsync();
+        
+        setUserData(handleAsync());
     },[])
 
     const desconect = ()=>{
         setLoggedIn(false);
         sessionStorage.removeItem('loggedIn');
         sessionStorage.removeItem('user');
+        sessionStorage.removeItem('name');
     }
 
     const deleteAccount = ()=>{
@@ -27,12 +30,13 @@ const Account = ()=>{
         setLoggedIn(false);
         sessionStorage.removeItem('loggedIn');
         sessionStorage.removeItem('user');
+        sessionStorage.removeItem('name');
     }
 
     return(
         <section className="main-sec">
             <hgroup>
-                <h1>{`Bienvenido ${ userData.name !== undefined ? userData.name : ''}`}</h1>
+                <h1>{`Bienvenido ${ userName }`}</h1>
                 <h3>En esta página podrás gestionar tu cuenta</h3>
             </hgroup>
             <section>

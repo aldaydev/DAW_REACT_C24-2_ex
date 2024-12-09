@@ -1,15 +1,17 @@
 import { validateEmail, validatePass, validateName } from "../../../utils/validations";
 import { DataContext } from "../../../context/DataContext";
 import { useContext, useState } from "react";
-import { signInFireStore, signUpFireStore } from "../../../utils/firestore";
+import { signInFireStore, signUpFireStore, getUserName } from "../../../utils/firestore";
+import { findAllByTestId } from "@testing-library/react";
 
 const Login = ()=>{
 
-    const {setLoggedIn, userId, setUserId} = useContext(DataContext);
+    const {setLoggedIn, userName, setUserName, setUserId} = useContext(DataContext);
 
     const [emailError, setEmailError] = useState([false, 'type', 'msg']);
     const [passError, setPassError] = useState([false, 'type', 'msg']);
     const [nameError, setNameError] = useState([false, 'type', 'msg']);
+    const [conditions, setConditions] = useState(false);
 
     const [signInError, setSignInError] = useState(null);
 
@@ -36,6 +38,14 @@ const Login = ()=>{
                 setLoggedIn(true);
                 sessionStorage.loggedIn = true;
                 sessionStorage.user = signInEmail;
+
+                const handleAsync = async ()=>{
+                    const userName = await getUserName(signInEmail);
+                    sessionStorage.name = await userName.name;
+                    setUserName(await userName.name);
+                }
+                handleAsync();
+
                 setSignInError(valueFireStore[1]);
             }else{
                 setSignInError(valueFireStore[1]);
@@ -68,20 +78,25 @@ const Login = ()=>{
                 : setEmailError([false, null, '']);
 
         const valPass = validatePass(signUpPass) 
-        valPass
+        !valPass
                 ? setPassError([true, 'signUp', <p key='EmailError'>La contraseña debe tener al menos una letra, un número y un caracter especial</p>])
                 : setPassError([false, null, '']);
 
 
-        console.log(valName && valLastName && valEmail && valPass);
         if(valName && valLastName && valEmail && valPass){
             if(signUpFireStore(signUpName, signUpLastName, signUpEmail, signUpPass)){
                 setLoggedIn(true);
                 setUserId(signUpEmail);
+                setUserName(signUpName);
                 sessionStorage.loggedIn = true;
                 sessionStorage.user = signUpEmail;
+                sessionStorage.name = signUpName;
             }
         }
+    }
+
+    const showConditions = ()=>{
+
     }
 
     return (
@@ -128,14 +143,27 @@ const Login = ()=>{
                             {passError[0] && passError[1] === 'signUp' && passError[2]}
                         </label>
                         
-                        <label>
-                            <p>Acepto haber leído las condiciones</p>
-                            <input type="checkbox" required={true}/>
+                        <label className="login-checkboxLabel">
+                            <p className="login-checkboxText">Acepto haber leído los <a className="login-checkboxLink" onClick={()=>setConditions(true)}>términos y condiciones</a></p>
+                            <input type="checkbox" required={true} className="login-checkboxInput"/>
                         </label>
                         <input type="submit" value="Registrarse" className="signIn-btn"/>
                     </form>
                 </article>
             </div>
+
+            {conditions === true ? 
+                <div className="login-conditions-container">
+                    <div className="login-conditions-dialog">
+                        <h2 className="login-conditions-title">TERMINOS Y CONDICIONES</h2>
+                        <p className="login-conditions-text">Ten en cuenta que esta web ha sido creada con fines de exposición de mis habilidades en el desarrollo web.</p>
+                        <p className="login-conditions-text">Por tu seguridad es importante que no introduzcas contraseñas que utilices habitualmente</p>
+                        <p className="login-conditions-text">Pudes usar un email inventado para el acceso, así como datos ficticios para probar la App</p>
+                        <button className="login-conditions-btn" onClick={()=>setConditions(false)}>X</button>
+                    </div>
+                </div>
+                : null
+            }
             
         </section>
     )

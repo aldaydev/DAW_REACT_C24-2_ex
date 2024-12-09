@@ -12,8 +12,9 @@ export const DataProvider = ({children}) => {
     const [categories, setCategories] = useState([]);
     const [cartNumber, setCartNumber] = useState(Object.keys(localStorage).length);
     const [loggedIn, setLoggedIn] = useState(false);
-    const [userData, setUserData] = useState(null);
-    const [userId, setUserId] = useState(null)
+    const [userData, setUserData] = useState([]);
+    const [userId, setUserId] = useState(null);
+    const [userName, setUserName] = useState('usuario');
 
 
     useEffect(()=>{
@@ -23,7 +24,7 @@ export const DataProvider = ({children}) => {
         const loadedCategories = await getCategories();
 
         //Actualizamos setCategories
-        setCategories(()=>loadedCategories);
+        setCategories(()=> loadedCategories);
         //Actualizamos el número de productos en el carrito en funcion de LocalStorage
         setCartNumber(Object.keys(localStorage).length);
         sessionStorage.loggedIn && setLoggedIn(true);
@@ -35,12 +36,14 @@ export const DataProvider = ({children}) => {
         const handleAsync = async () =>{
           const userData = await getUserData();
           setUserData(userData);
+          // setUserName(userData.name);
+          // console.log(await userData);
         }
         loggedIn && handleAsync();
     },[loggedIn])
 
     return (
-        <DataContext.Provider value={{categories, cartNumber, setCartNumber, loggedIn, setLoggedIn, userData, userId, setUserId}}>
+        <DataContext.Provider value={{categories, cartNumber, setCartNumber, loggedIn, setLoggedIn, userData, setUserData, userId, setUserId, userName, setUserName}}>
             {children}
         </DataContext.Provider>
     )

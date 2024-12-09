@@ -243,6 +243,7 @@ body{
 }
 
 .main-sec{
+  position: relative;
   padding: 30px;
   max-width: 100dvw;
   min-height: calc(100vh - 150px);
@@ -666,6 +667,73 @@ body{
 .signIn-btn:hover{
   background-color: #443f39;
 }
+
+.login-checkboxLabel{
+  display: flex;
+  gap: 5px;
+}
+
+.login-checkboxText{
+  font-size: 1.1rem;
+  display: inline;
+}
+
+.login-checkboxLink{
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+.login-conditions-container{
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #FA8900a1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-conditions-dialog{
+  opacity: 1;
+  width: 50%;
+  height: 50%;
+  background-color: var(--color-black);
+  z-index: 200;
+  border-radius: 20px;
+  color: white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.login-conditions-title{
+  font-size: 1.3rem;
+}
+
+.login-conditions-text{
+  margin: 0 30px;
+  font-size: 1rem;
+  text-wrap: pretty;
+}
+
+.login-conditions-btn{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 200;
+  cursor: pointer;
+}
+
 
 
 
