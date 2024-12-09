@@ -5,7 +5,7 @@ import { signInFireStore, signUpFireStore } from "../../../utils/firestore";
 
 const Login = ()=>{
 
-    const {setLoggedIn} = useContext(DataContext);
+    const {setLoggedIn, userId, setUserId} = useContext(DataContext);
 
     const [emailError, setEmailError] = useState([false, 'type', 'msg']);
     const [passError, setPassError] = useState([false, 'type', 'msg']);
@@ -77,6 +77,7 @@ const Login = ()=>{
         if(valName && valLastName && valEmail && valPass){
             if(signUpFireStore(signUpName, signUpLastName, signUpEmail, signUpPass)){
                 setLoggedIn(true);
+                setUserId(signUpEmail);
                 sessionStorage.loggedIn = true;
                 sessionStorage.user = signUpEmail;
             }

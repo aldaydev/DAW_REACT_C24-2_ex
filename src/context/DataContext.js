@@ -13,6 +13,7 @@ export const DataProvider = ({children}) => {
     const [cartNumber, setCartNumber] = useState(Object.keys(localStorage).length);
     const [loggedIn, setLoggedIn] = useState(false);
     const [userData, setUserData] = useState(null);
+    const [userId, setUserId] = useState(null)
 
 
     useEffect(()=>{
@@ -39,7 +40,7 @@ export const DataProvider = ({children}) => {
     },[loggedIn])
 
     return (
-        <DataContext.Provider value={{categories, cartNumber, setCartNumber, loggedIn, setLoggedIn, userData}}>
+        <DataContext.Provider value={{categories, cartNumber, setCartNumber, loggedIn, setLoggedIn, userData, userId, setUserId}}>
             {children}
         </DataContext.Provider>
     )

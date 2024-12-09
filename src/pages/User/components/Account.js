@@ -5,7 +5,7 @@ import userEdit_icon from "../../../assets/img/icons/userEdit_icon.svg"
 
 const Account = ()=>{
 
-    const {setLoggedIn} = useContext(DataContext);
+    const {setLoggedIn, userId} = useContext(DataContext);
     const [userData, setUserData] = useState([]);
 
     useEffect(()=>{
